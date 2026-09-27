@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Finde heraus, wer dir auf Instagram nicht zurückfolgt. Ohne Login, ohne Upload: dein offizieller Datenexport wird nur auf deinem Gerät ausgewertet.">
+<meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Follow-Check">
+<meta name="format-detection" content="telephone=no">
+<title>Follow-Check</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <img class="logo" src="icon.svg" alt="" width="52" height="52">
+    <h1>Follow-Check</h1>
+    <p class="lead">Wer folgt dir auf Instagram nicht zurück? Finde es in 2 Minuten heraus, direkt auf deinem iPhone.</p>
+    <ul class="trust">
+      <li><span class="ico" aria-hidden="true">🔒</span>Kein Login, kein Passwort</li>
+      <li><span class="ico" aria-hidden="true">📱</span>Bleibt auf deinem Gerät</li>
+      <li><span class="ico" aria-hidden="true">✅</span>Offizieller Instagram-Export</li>
+    </ul>
+  </header>
+
+  <!-- ===== Anleitung ===== -->
+  <section class="card" id="anleitung" aria-labelledby="h-anleitung">
+    <h2 id="h-anleitung">So geht's</h2>
+    <ol class="steps">
+      <li>
+        <div class="step-num">1</div>
+        <div>
+          <strong>Daten bei Instagram anfordern</strong>
+          <p>Du forderst in der Instagram-App eine Kopie deiner Follower-Liste an. Das ist eine offizielle, kostenlose Funktion.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div>
+          <strong>ZIP-Datei herunterladen</strong>
+          <p>Nach ein paar Minuten bekommst du eine Mitteilung bzw. E-Mail. Die ZIP-Datei landet auf dem iPhone in der <em>Dateien</em>-App unter <em>Downloads</em>.</p>
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div>
+          <strong>Hier auswählen, fertig</strong>
+          <p>Tippe unten auf <em>ZIP-Datei auswählen</em>. Du musst nichts entpacken.</p>
+        </div>
+      </li>
+    </ol>
+
+    <details class="guide" id="guide-iphone">
+      <summary>Schritt 1 und 2 genau erklärt (iPhone)</summary>
+      <div class="guide-body">
+        <h3>Export in der Instagram-App anfordern</h3>
+        <ol class="sub">
+          <li>Öffne Instagram und tippe unten rechts auf dein <b>Profilbild</b>.</li>
+          <li>Tippe oben rechts auf das <b>Menü ☰</b>.</li>
+          <li>Tippe auf <b>Kontenübersicht</b> (Accounts Center).</li>
+          <li>Wähle <b>Deine Informationen und Berechtigungen</b>.</li>
+          <li>Tippe auf <b>Deine Informationen exportieren</b> und dann auf <b>Export erstellen</b>.</li>
+          <li>Wähle dein <b>Instagram-Profil</b> und dann <b>Auf Gerät exportieren</b>.</li>
+          <li>Tippe auf <b>Informationen anpassen</b>, entferne alle Häkchen und wähle nur <b>Follower und gefolgte Konten</b>. So ist der Export klein und schnell fertig.</li>
+          <li>Stelle ein: <b>Zeitraum: Gesamter Zeitraum</b> und <b>Format: JSON</b>.</li>
+          <li>Tippe auf <b>Export starten</b>.</li>
+        </ol>
+        <p class="note">Die Bezeichnungen können je nach App-Version leicht abweichen. Auf Englisch heisst es: Accounts Center → Your information and permissions → Export your information.</p>
+
+        <h3>ZIP-Datei herunterladen</h3>
+        <ol class="sub">
+          <li>Warte auf die Mitteilung oder E-Mail von Instagram. Meist dauert es nur wenige Minuten, manchmal länger.</li>
+          <li>Gehe wieder zu <b>Deine Informationen exportieren</b>. Beim fertigen Export tippst du auf <b>Herunterladen</b> (evtl. musst du dein Passwort bei Instagram bestätigen).</li>
+          <li>Safari fragt, ob du die Datei laden möchtest: <b>Laden</b>. Die Datei heisst z.&nbsp;B. <code>instagram-deinname-2026-…zip</code>.</li>
+          <li>Komm zurück auf diese Seite und tippe auf <b>ZIP-Datei auswählen</b> → <b>Durchsuchen</b> → <b>Downloads</b>.</li>
+        </ol>
+        <p class="note">Nicht entpacken nötig. Falls du die ZIP doch schon entpackt hast: Wähle die Dateien <code>following.json</code> und <code>followers_1.json</code> aus dem Ordner <code>connections/followers_and_following</code>.</p>
+      </div>
+    </details>
+
+    <details class="guide">
+      <summary>Android oder Computer?</summary>
+      <div class="guide-body">
+        <p>Funktioniert genau gleich. Am Computer kannst du den Export auch unter <b>accountscenter.instagram.com</b> → <b>Deine Informationen und Berechtigungen</b> → <b>Deine Informationen exportieren</b> anfordern. Danach die ZIP-Datei hier auswählen oder einfach ins Feld ziehen.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== Upload ===== -->
+  <section class="card upload" id="upload" aria-labelledby="h-upload">
+    <h2 id="h-upload">Export auswählen</h2>
+    <div class="drop" id="drop">
+      <label class="btn btn-primary btn-big" for="file">
+        <span aria-hidden="true">📦</span> ZIP-Datei auswählen
+      </label>
+      <input type="file" id="file" multiple>
+      <p class="hint">Oder die Dateien <code>following.json</code> und <code>followers_1.json</code> (bzw. .html) auswählen. Am Computer kannst du sie auch hierher ziehen.</p>
+    </div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+    <div class="row-actions">
+      <button class="btn btn-ghost" id="demo" type="button">Mit Beispieldaten ausprobieren</button>
+    </div>
+    <p class="privacy-note">🔒 Die Datei wird <b>nicht hochgeladen</b>. Sie wird nur von deinem Browser auf deinem Gerät gelesen. Die Seite ist technisch so eingestellt, dass sie keine Verbindungen ins Internet aufbauen darf.</p>
+  </section>
+
+  <!-- ===== Ergebnisse ===== -->
+  <section id="results" class="results" hidden aria-labelledby="h-results">
+    <h2 id="h-results" class="visually-hidden">Ergebnis</h2>
+
+    <div class="summary" id="summary"></div>
+
+    <div class="sticky">
+      <div class="segmented" role="tablist" aria-label="Kategorie">
+        <button role="tab" class="seg active" data-key="notback" aria-selected="true">
+          <span class="seg-label">Folgen dir nicht</span><span class="seg-count" id="c-notback">0</span>
+        </button>
+        <button role="tab" class="seg" data-key="fans" aria-selected="false">
+          <span class="seg-label">Du folgst nicht</span><span class="seg-count" id="c-fans">0</span>
+        </button>
+        <button role="tab" class="seg" data-key="mutual" aria-selected="false">
+          <span class="seg-label">Gegenseitig</span><span class="seg-count" id="c-mutual">0</span>
+        </button>
+      </div>
+      <div class="filters">
+        <input type="search" id="search" placeholder="Username suchen" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="search" aria-label="Username suchen">
+        <select id="sort" aria-label="Sortierung">
+          <option value="az">A–Z</option>
+          <option value="new">Neueste zuerst</option>
+          <option value="old">Älteste zuerst</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="desc" id="desc"></p>
+    <label class="toggle"><input type="checkbox" id="hide-done"> Abgehakte ausblenden</label>
+
+    <ul class="list" id="list"></ul>
+    <div class="empty" id="empty" hidden></div>
+
+    <div class="tools card">
+      <h3>Liste weiterverwenden</h3>
+      <div class="tool-buttons">
+        <button class="btn" id="copy" type="button">Liste kopieren</button>
+        <button class="btn" id="export" type="button">Als CSV speichern</button>
+        <button class="btn btn-ghost" id="reset" type="button">Neu starten</button>
+      </div>
+      <label class="toggle remember">
+        <input type="checkbox" id="remember">
+        <span><b>Auf diesem Gerät merken</b><br><small>Praktisch, wenn du zwischen Instagram und Safari hin- und herwechselst. Wird nur im Browser dieses Geräts gespeichert, nie an uns gesendet. Mit „Neu starten" wieder gelöscht.</small></span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="card faq" aria-labelledby="h-faq">
+    <h2 id="h-faq">Häufige Fragen</h2>
+    <details>
+      <summary>Warum muss ich mich nicht einloggen?</summary>
+      <p>Weil du deine Daten selbst bei Instagram anforderst. Follow-Check liest nur die Datei, die du auswählst. Gib dein Instagram-Passwort nie auf fremden Seiten ein. Seriöse Tools brauchen es nicht.</p>
+    </details>
+    <details>
+      <summary>Bekommt jemand meine Daten zu sehen?</summary>
+      <p>Nein. Die Auswertung passiert komplett in deinem Browser. Es gibt keinen Server, keine Datenbank und kein Tracking. Du kannst nach dem Laden der Seite sogar in den Flugmodus wechseln, es funktioniert trotzdem.</p>
+    </details>
+    <details>
+      <summary>Wie entfolge ich jemandem?</summary>
+      <p>Tippe in der Liste auf einen Namen. Das Profil öffnet sich in der Instagram-App, dort tippst du auf <em>Gefolgt</em> → <em>Nicht mehr folgen</em>. Zurück in Safari ist der Eintrag abgehakt, damit du den Überblick behältst.</p>
+    </details>
+    <details>
+      <summary>Die Zahlen weichen etwas von der App ab. Warum?</summary>
+      <p>Der Export ist eine Momentaufnahme. Wer dir seither gefolgt ist oder entfolgt hat, fehlt. Ausserdem führt Instagram deaktivierte oder gesperrte Konten teilweise noch im Export. Für aktuelle Zahlen einfach einen neuen Export anfordern.</p>
+    </details>
+    <details>
+      <summary>„Keine Follower-Dateien gefunden". Was nun?</summary>
+      <p>Wahrscheinlich wurde beim Export nicht <em>Follower und gefolgte Konten</em> ausgewählt oder das Format war nicht JSON bzw. HTML. Fordere den Export nochmals gemäss Anleitung an. Wenn Instagram den Export in mehrere ZIP-Dateien aufteilt, wähle alle gleichzeitig aus.</p>
+    </details>
+  </section>
+
+  <footer class="footer">
+    <p><a href="datenschutz.html">Datenschutz</a> · <a href="https://github.com/linusscodingg/Insta-Flow" rel="noopener noreferrer">Quellcode</a></p>
+    <p class="small">Follow-Check ist ein privates, nicht-kommerzielles Projekt und steht in keiner Verbindung zu Instagram oder Meta. Instagram ist eine Marke der Meta Platforms, Inc.</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
