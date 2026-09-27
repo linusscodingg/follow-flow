@@ -23,7 +23,6 @@ Zeigt, wer dir auf Instagram nicht zurückfolgt. Optimiert fürs iPhone, funktio
 index.html            Seite mit Anleitung, Upload, Ergebnis, FAQ
 app.js                Logik (ZIP-Leser, Parser, Vergleich)
 style.css             Design
-datenschutz.html      Datenschutzerklärung
 icon.svg / *.png      Icons
 manifest.webmanifest  Web-App-Manifest
 .nojekyll             GitHub Pages ohne Jekyll ausliefern
@@ -39,4 +38,4 @@ Lokal testen: `python -m http.server` im Ordner starten und `http://localhost:80
 
 ## Hinweis
 
-Privates, nicht-kommerzielles Projekt ohne Verbindung zu Instagram oder Meta. Instagram ist eine Marke der Meta Platforms, Inc.
+Privates Tool für den Eigengebrauch, ohne Verbindung zu Instagram oder Meta. Wird nicht von Suchmaschinen indexiert.
