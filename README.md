@@ -1,6 +1,6 @@
 # Follow-Check
 
-Zeigt, wer dir auf Instagram nicht zurückfolgt. Optimiert fürs iPhone, funktioniert aber auf jedem Gerät.
+Zeigt, wer dir auf Instagram nicht zurückfolgt, und lässt dich per Swipe entscheiden: links = entfolgen, rechts = behalten. Optimiert fürs iPhone, funktioniert aber auf jedem Gerät.
 
 - Kein Login, kein Passwort, keine API, kein Scraping
 - Nutzt nur den **offiziellen Instagram-Datenexport** (ZIP direkt, JSON oder HTML)
@@ -10,18 +10,28 @@ Zeigt, wer dir auf Instagram nicht zurückfolgt. Optimiert fürs iPhone, funktio
 ## Funktionen
 
 - ZIP-Datei direkt auswählen, kein Entpacken nötig (auch mehrteilige Exporte und `followers_1`, `followers_2` …)
-- Drei Listen: *Folgen dir nicht zurück*, *Du folgst nicht zurück*, *Gegenseitig*
-- Suche, Sortierung nach Datum, Abhaken beim Entfolgen
+- Zeigt nur Konten, denen du folgst, die dir aber nicht zurückfolgen
+- Swipen wie bei Tinder (Touch, Maus, Pfeiltasten) oder per Knopf ✕ / ♥, mit Rückgängig
+- Listen *Entfolgen* (zum Abhaken beim Entfolgen) und *Behalten*
+- Entscheide werden im localStorage gespeichert (`followcheck.v2`). Beim nächsten Export kommen Behaltene nicht mehr zum Swipen, Entfolgte verschwinden automatisch
+- Backup der Entscheide als JSON-Datei speichern und wieder laden (wird zusammengeführt)
 - Profil antippen öffnet direkt die Instagram-App
-- Liste kopieren oder als CSV speichern
-- Optional „Auf diesem Gerät merken" (localStorage, nur nach Opt-in)
 - Hell/Dunkel-Modus, Zum-Home-Bildschirm-fähig
+
+## Backup (empfohlen)
+
+Safari löscht den localStorage einer Seite, wenn sie eine Weile nicht geöffnet wird. Darum ist das Backup der sichere Stand:
+
+1. Nach dem Swipen *Backup speichern* (Datei `follow-check-backup-JJJJ-MM-TT.json`, landet in Dateien → Downloads).
+2. Beim nächsten Export die neue ZIP-Datei und das Backup zusammen auswählen.
+
+Die Seite erinnert mit einem Hinweis, solange es ungesicherte Änderungen gibt. Beim Laden wird zusammengeführt, der neuere Entscheid gewinnt.
 
 ## Dateien
 
 ```
 index.html            Seite mit Anleitung, Upload, Ergebnis, FAQ
-app.js                Logik (ZIP-Leser, Parser, Vergleich)
+app.js                Logik (ZIP-Leser, Parser, Swipe, Speicher, Backup)
 style.css             Design
 icon.svg / *.png      Icons
 manifest.webmanifest  Web-App-Manifest

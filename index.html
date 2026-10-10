@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; manifest-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Finde heraus, wer dir auf Instagram nicht zurückfolgt. Ohne Login, ohne Upload: dein offizieller Datenexport wird nur auf deinem Gerät ausgewertet.">
+<meta name="description" content="Finde heraus, wer dir auf Instagram nicht zurückfolgt, und entscheide per Swipe. Ohne Login, ohne Upload: alles bleibt auf deinem Gerät.">
 <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,13 +26,95 @@
   <header class="hero">
     <img class="logo" src="icon.svg" alt="" width="52" height="52">
     <h1>Follow-Check</h1>
-    <p class="lead">Wer folgt dir auf Instagram nicht zurück? Finde es in 2 Minuten heraus, direkt auf deinem iPhone.</p>
+    <p class="lead">Wer folgt dir auf Instagram nicht zurück? Swipe durch: links entfolgen, rechts behalten.</p>
     <ul class="trust">
       <li><span class="ico" aria-hidden="true">🔒</span>Kein Login, kein Passwort</li>
       <li><span class="ico" aria-hidden="true">📱</span>Bleibt auf deinem Gerät</li>
       <li><span class="ico" aria-hidden="true">✅</span>Offizieller Instagram-Export</li>
     </ul>
   </header>
+
+  <!-- ===== Ergebnisse ===== -->
+  <section id="results" class="results" hidden aria-labelledby="h-results">
+    <h2 id="h-results" class="visually-hidden">Ergebnis</h2>
+
+    <div class="summary" id="summary"></div>
+    <div class="import-note" id="import-note" hidden></div>
+
+    <div class="sticky">
+      <div class="segmented" role="tablist" aria-label="Ansicht">
+        <button role="tab" class="seg active" data-key="swipe" aria-selected="true">
+          <span class="seg-label">Swipen</span><span class="seg-count" id="c-swipe">0</span>
+        </button>
+        <button role="tab" class="seg" data-key="unfollow" aria-selected="false">
+          <span class="seg-label">Entfolgen</span><span class="seg-count" id="c-unfollow">0</span>
+        </button>
+        <button role="tab" class="seg" data-key="keep" aria-selected="false">
+          <span class="seg-label">Behalten</span><span class="seg-count" id="c-keep">0</span>
+        </button>
+      </div>
+      <div class="filters" id="filters" hidden>
+        <input type="search" id="search" placeholder="Username suchen" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="search" aria-label="Username suchen">
+        <select id="sort" aria-label="Sortierung">
+          <option value="recent">Zuletzt entschieden</option>
+          <option value="az">A–Z</option>
+          <option value="new">Neueste zuerst</option>
+          <option value="old">Älteste zuerst</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Swipen -->
+    <div class="view" id="view-swipe">
+      <div class="swipe-top">
+        <span class="progress" id="progress"></span>
+        <select id="order" aria-label="Reihenfolge">
+          <option value="new">Neueste zuerst</option>
+          <option value="old">Älteste zuerst</option>
+          <option value="az">A–Z</option>
+        </select>
+      </div>
+      <div class="deck" id="deck" aria-live="polite"></div>
+      <div class="deck-empty" id="deck-empty" hidden></div>
+      <div class="swipe-actions" id="swipe-actions">
+        <button class="act act-no" id="btn-no" type="button" aria-label="Entfolgen (Pfeil links)" title="Entfolgen (←)">✕</button>
+        <button class="act act-undo" id="btn-undo" type="button" aria-label="Rückgängig" title="Rückgängig (Backspace)">↶</button>
+        <button class="act act-yes" id="btn-yes" type="button" aria-label="Behalten (Pfeil rechts)" title="Behalten (→)">♥</button>
+      </div>
+      <p class="swipe-hint">← Entfolgen &nbsp;·&nbsp; Behalten → &nbsp;·&nbsp; Karte antippen öffnet das Profil</p>
+    </div>
+
+    <!-- Listen -->
+    <div class="view" id="view-list" hidden>
+      <p class="desc" id="desc"></p>
+      <label class="toggle" id="hide-done-wrap"><input type="checkbox" id="hide-done"> Erledigte ausblenden</label>
+      <ul class="list" id="list"></ul>
+      <div class="empty" id="empty" hidden></div>
+    </div>
+
+    <div class="backup-banner" id="backup-banner" hidden>
+      <span class="bb-text" id="backup-banner-text"></span>
+      <button class="btn btn-primary" id="backup-banner-btn" type="button">💾 Jetzt sichern</button>
+    </div>
+
+    <div class="tools card" id="tools">
+      <h3>Backup</h3>
+      <p class="store-info" id="store-info"></p>
+      <ol class="backup-steps">
+        <li><b>Nach dem Swipen:</b> <em>Backup speichern</em> tippen. Die Datei landet in der <em>Dateien</em>-App unter <em>iCloud Drive → Downloads</em>.</li>
+        <li><b>Beim nächsten Mal:</b> Oben bei <em>Neuen Export laden</em> die neue ZIP-Datei <b>und</b> das Backup zusammen auswählen. Fertig, du swipest nur neue Leute.</li>
+      </ol>
+      <p class="note">Warum? Deine Entscheide liegen sonst nur im Browser, und Safari löscht diesen Speicher, wenn du die Seite eine Weile nicht öffnest. Das Backup ist dein sicherer Stand.</p>
+      <div class="tool-buttons">
+        <button class="btn" id="backup-save" type="button">💾 Backup speichern</button>
+        <label class="btn" for="backup-file">📂 Backup laden</label>
+      </div>
+      <div class="tool-buttons">
+        <button class="btn btn-ghost" id="copy" type="button">Liste kopieren</button>
+        <button class="btn btn-ghost btn-danger" id="reset" type="button">Alles löschen</button>
+      </div>
+    </div>
+  </section>
 
   <!-- ===== Anleitung ===== -->
   <section class="card" id="anleitung" aria-labelledby="h-anleitung">
@@ -55,8 +137,8 @@
       <li>
         <div class="step-num">3</div>
         <div>
-          <strong>Hier auswählen, fertig</strong>
-          <p>Tippe unten auf <em>ZIP-Datei auswählen</em>. Du musst nichts entpacken.</p>
+          <strong>Hier auswählen und swipen</strong>
+          <p>Tippe unten auf <em>ZIP-Datei auswählen</em>. Du musst nichts entpacken. Danach <em>Backup speichern</em>, dann siehst du beim nächsten Export nur noch neue Leute.</p>
         </div>
       </li>
     </ol>
@@ -92,7 +174,7 @@
     <details class="guide">
       <summary>Android oder Computer?</summary>
       <div class="guide-body">
-        <p>Funktioniert genau gleich. Am Computer kannst du den Export auch unter <b>accountscenter.instagram.com</b> → <b>Deine Informationen und Berechtigungen</b> → <b>Deine Informationen exportieren</b> anfordern. Danach die ZIP-Datei hier auswählen oder einfach ins Feld ziehen.</p>
+        <p>Funktioniert genau gleich. Am Computer kannst du den Export auch unter <b>accountscenter.instagram.com</b> → <b>Deine Informationen und Berechtigungen</b> → <b>Deine Informationen exportieren</b> anfordern. Danach die ZIP-Datei hier auswählen oder einfach ins Feld ziehen. Swipen geht dort auch mit der Maus oder den Pfeiltasten.</p>
       </div>
     </details>
   </section>
@@ -105,77 +187,41 @@
         <span aria-hidden="true">📦</span> ZIP-Datei auswählen
       </label>
       <input type="file" id="file" multiple>
-      <p class="hint">Oder die Dateien <code>following.json</code> und <code>followers_1.json</code> (bzw. .html) auswählen. Am Computer kannst du sie auch hierher ziehen.</p>
+      <p class="hint"><b>Schon mal geswipt?</b> Wähle die ZIP-Datei und dein Backup <code>follow-check-backup-….json</code> zusammen aus (im Dateien-Picker oben rechts <em>Auswählen</em>). Dann kommen nur neue Leute zum Swipen.</p>
+      <p class="hint">Entpackt geht auch: <code>following.json</code> und <code>followers_1.json</code> (bzw. .html). Am Computer kannst du die Dateien auch hierher ziehen.</p>
     </div>
     <div class="status" id="status" role="status" aria-live="polite"></div>
     <div class="row-actions">
+      <label class="btn btn-ghost" for="backup-file">📂 Nur Backup laden</label>
+      <input type="file" id="backup-file" class="visually-hidden" accept=".json,application/json">
+      <button class="btn btn-ghost" id="show-guide" type="button" hidden>Anleitung anzeigen</button>
       <button class="btn btn-ghost" id="demo" type="button">Mit Beispieldaten ausprobieren</button>
     </div>
     <p class="privacy-note">🔒 Die Datei wird <b>nicht hochgeladen</b>. Sie wird nur von deinem Browser auf deinem Gerät gelesen. Die Seite ist technisch so eingestellt, dass sie keine Verbindungen ins Internet aufbauen darf.</p>
-  </section>
-
-  <!-- ===== Ergebnisse ===== -->
-  <section id="results" class="results" hidden aria-labelledby="h-results">
-    <h2 id="h-results" class="visually-hidden">Ergebnis</h2>
-
-    <div class="summary" id="summary"></div>
-
-    <div class="sticky">
-      <div class="segmented" role="tablist" aria-label="Kategorie">
-        <button role="tab" class="seg active" data-key="notback" aria-selected="true">
-          <span class="seg-label">Folgen dir nicht</span><span class="seg-count" id="c-notback">0</span>
-        </button>
-        <button role="tab" class="seg" data-key="fans" aria-selected="false">
-          <span class="seg-label">Du folgst nicht</span><span class="seg-count" id="c-fans">0</span>
-        </button>
-        <button role="tab" class="seg" data-key="mutual" aria-selected="false">
-          <span class="seg-label">Gegenseitig</span><span class="seg-count" id="c-mutual">0</span>
-        </button>
-      </div>
-      <div class="filters">
-        <input type="search" id="search" placeholder="Username suchen" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="search" aria-label="Username suchen">
-        <select id="sort" aria-label="Sortierung">
-          <option value="az">A–Z</option>
-          <option value="new">Neueste zuerst</option>
-          <option value="old">Älteste zuerst</option>
-        </select>
-      </div>
-    </div>
-
-    <p class="desc" id="desc"></p>
-    <label class="toggle"><input type="checkbox" id="hide-done"> Abgehakte ausblenden</label>
-
-    <ul class="list" id="list"></ul>
-    <div class="empty" id="empty" hidden></div>
-
-    <div class="tools card">
-      <h3>Liste weiterverwenden</h3>
-      <div class="tool-buttons">
-        <button class="btn" id="copy" type="button">Liste kopieren</button>
-        <button class="btn" id="export" type="button">Als CSV speichern</button>
-        <button class="btn btn-ghost" id="reset" type="button">Neu starten</button>
-      </div>
-      <label class="toggle remember">
-        <input type="checkbox" id="remember">
-        <span><b>Auf diesem Gerät merken</b><br><small>Praktisch, wenn du zwischen Instagram und Safari hin- und herwechselst. Wird nur im Browser dieses Geräts gespeichert, nie an uns gesendet. Mit „Neu starten" wieder gelöscht.</small></span>
-      </label>
-    </div>
   </section>
 
   <!-- ===== FAQ ===== -->
   <section class="card faq" aria-labelledby="h-faq">
     <h2 id="h-faq">Häufige Fragen</h2>
     <details>
-      <summary>Warum muss ich mich nicht einloggen?</summary>
-      <p>Weil du deine Daten selbst bei Instagram anforderst. Follow-Check liest nur die Datei, die du auswählst. Gib dein Instagram-Passwort nie auf fremden Seiten ein. Seriöse Tools brauchen es nicht.</p>
-    </details>
-    <details>
-      <summary>Bekommt jemand meine Daten zu sehen?</summary>
-      <p>Nein. Die Auswertung passiert komplett in deinem Browser. Es gibt keinen Server, keine Datenbank und kein Tracking. Du kannst nach dem Laden der Seite sogar in den Flugmodus wechseln, es funktioniert trotzdem.</p>
+      <summary>Wie funktioniert das Swipen?</summary>
+      <p>Du siehst nur Konten, denen du folgst, die dir aber nicht zurückfolgen. Nach <b>links</b> wischen (oder ✕) heisst <em>entfolgen</em>, nach <b>rechts</b> (oder ♥) heisst <em>behalten</em>. Mit ↶ machst du den letzten Swipe rückgängig. Am Computer gehen auch die Pfeiltasten.</p>
     </details>
     <details>
       <summary>Wie entfolge ich jemandem?</summary>
-      <p>Tippe in der Liste auf einen Namen. Das Profil öffnet sich in der Instagram-App, dort tippst du auf <em>Gefolgt</em> → <em>Nicht mehr folgen</em>. Zurück in Safari ist der Eintrag abgehakt, damit du den Überblick behältst.</p>
+      <p>Die Seite kann nicht selbst entfolgen (dafür gibt es keine erlaubte Schnittstelle). Alle, die du nach links gewischt hast, stehen unter <em>Entfolgen</em>. Tippe auf einen Namen, das Profil öffnet sich in Instagram, dort <em>Gefolgt</em> → <em>Nicht mehr folgen</em>. Zurück auf der Seite ist der Eintrag abgehakt.</p>
+    </details>
+    <details>
+      <summary>Was passiert beim nächsten Export?</summary>
+      <p>Wähle die neue ZIP-Datei zusammen mit deinem Backup aus. Wen du behalten hast, kommt nicht mehr zum Swipen. Wem du inzwischen nicht mehr folgst oder wer dir jetzt zurückfolgt, verschwindet aus <em>Entfolgen</em>. Zum Swipen kommen nur neue Leute.</p>
+    </details>
+    <details>
+      <summary>Wo werden meine Entscheide gespeichert?</summary>
+      <p>Während du swipest, merkt sich der Browser alles (localStorage, nur auf diesem Gerät). Safari löscht diesen Speicher aber, wenn du die Seite rund eine Woche nicht öffnest. Darum gibt es das <em>Backup</em>: eine kleine Datei mit deinen Entscheiden (nur Usernamen und Datum, keine Passwörter), die in deiner <em>Dateien</em>-App bzw. iCloud Drive liegt. Beim Laden wird sie mit dem aktuellen Stand zusammengeführt, es geht nichts verloren. So kannst du auch auf einem neuen Handy oder am PC weitermachen.</p>
+    </details>
+    <details>
+      <summary>Warum muss ich mich nicht einloggen?</summary>
+      <p>Weil du deine Daten selbst bei Instagram anforderst. Follow-Check liest nur die Datei, die du auswählst. Gib dein Instagram-Passwort nie auf fremden Seiten ein. Seriöse Tools brauchen es nicht.</p>
     </details>
     <details>
       <summary>Die Zahlen weichen etwas von der App ab. Warum?</summary>
@@ -188,11 +234,11 @@
   </section>
 
   <footer class="footer">
-    <p class="small">Privates Tool. Alles wird lokal auf deinem Gerät ausgewertet, es werden keine Daten gesammelt oder gesendet. Kein Angebot von Instagram oder Meta.</p>
+    <p class="small">Privates Tool. Alles wird lokal auf deinem Gerät ausgewertet und gespeichert, es werden keine Daten gesammelt oder gesendet. Kein Angebot von Instagram oder Meta.</p>
   </footer>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-msg"></span><button type="button" id="toast-btn" hidden></button></div>
 <script src="app.js"></script>
 </body>
 </html>
